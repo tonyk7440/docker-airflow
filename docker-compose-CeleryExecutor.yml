@@ -30,11 +30,12 @@ services:
             # - POSTGRES_DB=airflow
             # - REDIS_PASSWORD=redispass
         volumes:
-            - ./dags:/usr/local/airflow/dags
+            - /home/apps/gsc_airflow/dags/:/usr/local/airflow/dags
+            - /home/apps/gsc_airflow/config/airflow.cfg:/usr/local/airflow/airflow.cfg
             # Uncomment to include custom plugins
             # - ./plugins:/usr/local/airflow/plugins
         ports:
-            - "8080:8080"
+            - "5500:8080"
         command: webserver
         healthcheck:
             test: ["CMD-SHELL", "[ -f /usr/local/airflow/airflow-webserver.pid ]"]
@@ -60,7 +61,8 @@ services:
         depends_on:
             - webserver
         volumes:
-            - ./dags:/usr/local/airflow/dags
+            - /home/apps/gsc_airflow/dags/:/usr/local/airflow/dags
+            - /home/apps/gsc_airflow/config/airflow.cfg:/usr/local/airflow/airflow.cfg
             # Uncomment to include custom plugins
             # - ./plugins:/usr/local/airflow/plugins
         environment:
@@ -79,7 +81,8 @@ services:
         depends_on:
             - scheduler
         volumes:
-            - ./dags:/usr/local/airflow/dags
+            - /home/apps/gsc_airflow/dags/:/usr/local/airflow/dags
+            - /home/apps/gsc_airflow/config/airflow.cfg:/usr/local/airflow/airflow.cfg
             # Uncomment to include custom plugins
             # - ./plugins:/usr/local/airflow/plugins
         environment:
